@@ -1293,7 +1293,7 @@ bot.onText(/\/saudades/, (msg) => {
   } 
 
   // Cria a mensagem de resposta com a frase, o emoji e o gráfico vertical
-  const respostaSaudades = `*Nível de saudades*\n\nA sua gadice está em ${nivelSaudades}%\n\n${fraseSaudades}${emojiSaudades}\n${graficoSaudades} *${nivelSaudades}%*`;
+  const respostaSaudades = `*Nível de saudades*\n\nA sua saudades está em ${nivelSaudades}%\n\n${fraseSaudades}${emojiSaudades}\n${graficoSaudades} *${nivelSaudades}%*`;
 
   // Envia a mensagem de resposta para o usuário que enviou o comando /chato
   bot.sendMessage(msg.chat.id, respostaSaudades, {reply_to_message_id: msg.message_id, parse_mode: 'Markdown' });
