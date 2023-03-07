@@ -2,6 +2,7 @@ const {bot} = require('../bot')
 
 
 module.exports = async (msg) => {
+  if (msg.chat.type === 'private') { 
   // URL da imagem
   const imageURL = 'https://t2.tudocdn.net/202939?w=646&h=284';
 
@@ -22,6 +23,7 @@ module.exports = async (msg) => {
       inline_keyboard: buttons,
     },
   });
+  }
 };
 
 
