@@ -2272,7 +2272,7 @@ bot.onText(/\/help/, (msg) => {
 '/crush - adivinha a primeira letra do seu crush🥰\n',
 '/time - adivinha seu time do coração😂\n',
 '/fruta - adivinha sua fruta preferida🍎\n',
-'/curiosidade - envia aleatoriamente curiosidade sobre o mundo👀',
+'/curiosidade - envia aleatoriamente curiosidade sobre o mundo👀\n',
 '/sigma - mede seu nível sigma🗿🍷'
   ];
 
