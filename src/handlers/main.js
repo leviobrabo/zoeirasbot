@@ -2271,7 +2271,9 @@ bot.onText(/\/help/, (msg) => {
 '/cor - adivinha sua cor preferida🔴\n',
 '/crush - adivinha a primeira letra do seu crush🥰\n',
 '/time - adivinha seu time do coração😂\n',
-'/fruta - adivinha sua fruta preferida🍎\n'
+'/fruta - adivinha sua fruta preferida🍎\n',
+'/curiosidade - envia aleatoriamente curiosidade sobre o mundo👀',
+'/sigma - mede seu nível sigma🗿🍷'
   ];
 
   const helpMessage = 'Lista de Comandos: \n\n' + commands.join('\n');
