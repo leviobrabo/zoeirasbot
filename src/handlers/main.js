@@ -2273,7 +2273,8 @@ bot.onText(/\/help/, (msg) => {
 '/time - adivinha seu time do coração😂\n',
 '/fruta - adivinha sua fruta preferida🍎\n',
 '/curiosidade - envia aleatoriamente curiosidade sobre o mundo👀\n',
-'/sigma - mede seu nível sigma🗿🍷'
+'/sigma - mede seu nível sigma🗿🍷\n',
+'/my - suas informações'
   ];
 
   const helpMessage = 'Lista de Comandos: \n\n' + commands.join('\n');
@@ -2824,7 +2825,55 @@ bot.onText(/\/curiosidade/, (msg) => {
 
 
 
-
+  bot.onText(/\/my/, (msg) => {
+    const chatId = msg.chat.id;
+    const userId = msg.from.id;
+  
+    bot.getUserProfilePhotos(userId).then((photos) => {
+      const userProfilePhotos = photos.total_count > 0 ? photos.photos[0] : null;
+      const firstName = msg.from.first_name;
+      const lastName = msg.from.last_name || '';
+      const nickname = msg.from.username || '';
+      const age = Math.floor(Math.random() * 23) + 18; // Escolhe uma idade aleatória entre 18 e 40 anos
+      const professions = ['Advogado', 'Arquiteto', 'Assistente Social', 'Ator', 'Cientista', 'Desempregado', 'Designer', 'Dentista', 'Engenheiro', 'Enfermeiro', 'Escritor', 'Farmacêutico', 'Jornalista', 'Médico', 'Professor', 'Programador', 'Psicólogo', 'Publicitário', 'Veterinário', 'Web Designer', 'Astrônomo', 'Bibliotecário', 'Cirurgião', 'Contador', 'Cozinheiro', 'Fisioterapeuta', 'Geólogo', 'Historiador', 'Músico', 'Policial', 'Psiquiatra', 'Empresário', 'Investigador', 'Corretor de imóveis', 'Taxista', 'Estudante', 'Bombeiro', 'Piloto', 'Artista'];
+      const profession = professions[Math.floor(Math.random() * professions.length)]; // Escolhe uma profissão aleatória da lista
+      const temperaments = [
+        { name: 'calmo', emoji: '😌' },
+        { name: 'feliz', emoji: '😊' },
+        { name: 'animado', emoji: '🥳' },
+        { name: 'irritado', emoji: '😠' },
+        { name: 'confuso', emoji: '🤔' },
+        { name: 'apaixonado', emoji: '😍' }
+      ]; // lista de temperamentos com nome e emoji correspondente
+      const temperament = temperaments[Math.floor(Math.random() * temperaments.length)];
+      const phrases = ['Pessoa gentil e atenciosa', 'Amante da natureza', 'Fã de música e cinema', 'Sempre disposto a ajudar', 'Curioso e apaixonado por tecnologia']; // Lista de frases que definem a pessoa
+      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)]; // Escolhe uma frase aleatória da lista
+  
+      if (userProfilePhotos) {
+        const fileId = userProfilePhotos[0].file_id;
+        const message = `*INFORMAÇÕES PESSOAIS*\n\n` +
+          `*Nome:* ${firstName} ${lastName}\n` +
+          `*Nome de usuário:* @${nickname}\n` +
+          `*ID:* ${userId}\n` +
+          `*Idade:* ${age}\n` +
+          `*Profissão:* ${profession}\n` +
+          `*Temperamento:* ${temperament.name} ${temperament.emoji}\n` +
+          `*Definição:* ${randomPhrase}\n`;
+        bot.sendPhoto(chatId, fileId, { caption: message, reply_to_message_id: msg.message_id, parse_mode: 'Markdown' });
+      } else {
+        const message = `*INFORMAÇÕES PESSOAIS*\n\n` +
+          `*Nome:* ${firstName} ${lastName}\n` +
+          `*Nome de usuário:* @${nickname}\n` +
+          `*ID:* ${userId}\n` +
+          `*Idade:* ${age}\n` +
+          `*Profissão:* ${profession}\n` +
+          `*Temperamento:* ${temperament.name} ${temperament.emoji}\n` +
+          `*Definição:* ${randomPhrase}\n`;
+        bot.sendMessage(chatId, message, {reply_to_message_id: msg.message_id, parse_mode: 'Markdown' });
+      }
+    }).catch((error) => console.error(error));
+  });
+  
 
 
 
