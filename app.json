@@ -1,0 +1,20 @@
+{
+    "name": "Zoeirasbot",
+    "description": "'Gato Sincero' é um bot quem envia comandos aleatorios.",
+    "repository": "https://github.com/leviobrabo/zoeirasbot/",
+    "logo": "https://pbs.twimg.com/media/FaQaIazagAEPA24?format=jpg&name=900x900",
+    "keywords": [
+      "node",
+      "zoeira",
+      "telegrambot"
+    ],
+    "website": "https://github.com/leviobrabo",
+    "success_url": "https://t.me/zoeirasbot",
+    "env": {
+      "TELEGRAM_API": {
+        "description": "Make a bot at BotFather http://telegram.dog/BotFather and get the token of your bot",
+        "value": "",
+        "required": true
+      }
+    }
+}
