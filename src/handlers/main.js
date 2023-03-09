@@ -2905,23 +2905,38 @@ const BOT_OWNER_CHAT_ID = process.env.DONO_DO_BOT_CHAT_ID;
 
 
 
-bot.onText(/\/all (.+)/, (msg, match) => {
+bot.onText(/\/all (.+)/, async (msg, match) => {
+
   const chatId = msg.chat.id;
+
   const message = match[1];
-  
+
   // Verificar se o usuário que enviou a mensagem é o dono do bot
+
   if (chatId !== BOT_OWNER_CHAT_ID) {
+
     bot.sendMessage(chatId, 'Você não tem permissão para usar esse comando!');
+
     return;
+
   }
-  
-  // Enviar mensagem para todos os chats que o bot está conectado
-  bot.getChatList().then((chats) => {
-    chats.forEach((chat) => {
-      const chatId = chat.chat.id;
-      bot.sendMessage(chatId, message);
-    });
-  });
+
+  try {
+
+    // Enviar mensagem para todos os chats que o bot está conectado
+
+    const chats = await bot.telegram.getChatList();
+
+    await Promise.all(chats.map((chat) => bot.telegram.sendMessage(chat.chat.id, message)));
+
+  } catch (err) {
+
+    console.error('Erro ao enviar mensagem para todos os chats:', err);
+
+    bot.sendMessage(chatId, 'Ocorreu um erro ao enviar mensagem para todos os chats.');
+
+  }
+
 });
 
 
