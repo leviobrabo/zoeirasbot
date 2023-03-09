@@ -2891,8 +2891,9 @@ bot.onText(/\/sug/, (msg) => {
   bot.once('message', (msg) => {
     const suggestion = msg.text;
     
-    // Encaminhar sugestão para o dono do bot
-    bot.forwardMessage(process.env.DONO_DO_BOT_CHAT_ID, chatId, msg.message_id);
+    
+     // Enviar sugestão para o dono do bot
+  bot.sendMessage(process.env.DONO_DO_BOT_CHAT_ID, `Nova sugestão recebida: ${suggestion}`);
 
     
     // Confirmar para o usuário que a sugestão foi enviada
