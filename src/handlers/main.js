@@ -2887,6 +2887,12 @@ bot.onText(/\/curiosidade/, (msg) => {
 bot.onText(/^\/sug (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
 
+  // Verificar se o comando foi enviado em chat privado
+  if (msg.chat.type !== 'private') {
+    bot.sendMessage(chatId, 'O comando /sug só pode ser enviado em chat privado.');
+    return;
+  }
+
   // Extrair a sugestão do comando
   const suggestion = match[1];
 
@@ -2896,6 +2902,7 @@ bot.onText(/^\/sug (.+)/, (msg, match) => {
   // Confirmar para o usuário que a sugestão foi enviada
   bot.sendMessage(chatId, 'Sua sugestão foi enviada para o dono do bot!');
 });
+
 
 
 
