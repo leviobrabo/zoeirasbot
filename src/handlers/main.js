@@ -2883,28 +2883,18 @@ bot.onText(/\/curiosidade/, (msg) => {
 
 
 
-// Escutar mensagens que começam com "/sug"
-bot.onText(/^\/sug/, (msg) => {
+// Ajustar comando para /sug sugestão
+bot.onText(/^\/sug (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
 
-  // Verificar se a mensagem é exatamente "/sug"
-  if (msg.text === '/sug') {
+  // Extrair a sugestão do comando
+  const suggestion = match[1];
 
-    // Enviar mensagem para o usuário pedindo a sugestão
-    bot.sendMessage(chatId, 'Digite sua sugestão:');
+  // Enviar sugestão para o dono do bot
+  bot.sendMessage(process.env.DONO_DO_BOT_CHAT_ID, `Nova sugestão recebida: ${suggestion}`);
 
-    // Escutar a próxima mensagem enviada pelo usuário
-    bot.once('message', (msg) => {
-
-      const suggestion = msg.text;
-
-      // Enviar sugestão para o dono do bot
-      bot.sendMessage(process.env.DONO_DO_BOT_CHAT_ID, `Nova sugestão recebida: ${suggestion}`);
-
-      // Confirmar para o usuário que a sugestão foi enviada
-      bot.sendMessage(chatId, 'Sua sugestão foi enviada para o dono do bot!');
-    });
-  }
+  // Confirmar para o usuário que a sugestão foi enviada
+  bot.sendMessage(chatId, 'Sua sugestão foi enviada para o dono do bot!');
 });
 
 
