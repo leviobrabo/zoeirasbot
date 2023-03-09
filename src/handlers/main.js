@@ -2889,7 +2889,11 @@ bot.onText(/^\/sug (.+)/, (msg, match) => {
 
   // Verificar se o comando foi enviado em chat privado
   if (msg.chat.type !== 'private') {
-    bot.sendMessage(chatId, 'O comando /sug só pode ser enviado em chat privado.');
+    bot.sendMessage(chatId, 'O comando /sug só pode ser enviado em chat privado.', {
+
+reply_to_message_id: msg.message_id
+
+  });
     return;
   }
 
