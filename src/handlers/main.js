@@ -2883,7 +2883,22 @@ bot.onText(/\/curiosidade/, (msg) => {
 
 
 
+bot.onText(/\/sug/, (msg) => {
+  const chatId = msg.chat.id;
+  
+  bot.sendMessage(chatId, 'Digite sua sugestão:');
+  
+  bot.once('message', (msg) => {
+    const suggestion = msg.text;
+    
+    // Encaminhar sugestão para o dono do bot
+    bot.forwardMessage(process.env.DONO_DO_BOT_CHAT_ID, chatId, msg.message_id);
 
+    
+    // Confirmar para o usuário que a sugestão foi enviada
+    bot.sendMessage(chatId, 'Sua sugestão foi enviada para o dono do bot!');
+  });
+});
 
 
 
