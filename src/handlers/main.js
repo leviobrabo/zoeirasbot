@@ -2908,9 +2908,6 @@ bot.onText(/^\/sug (.+)/, (msg, match) => {
 
 
 
-
-
-
 bot.onText(/\/status/, async (msg) => {
   if (msg.chat.type !== 'private') {
     // Ignora o comando se não for em um chat privado
@@ -2938,6 +2935,7 @@ bot.onText(/\/status/, async (msg) => {
   const message = `\n──❑ 「 Bot Stats 」 ❑──\n\n ☆ ${numGroups} grupos\n ☆ ${numUsers} usuários`;
   bot.sendMessage(msg.chat.id, message);
 });
+
 
 
 
