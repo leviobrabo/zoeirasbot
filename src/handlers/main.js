@@ -2911,7 +2911,6 @@ bot.onText(/^\/sug (.+)/, (msg, match) => {
 
 
 
-
 bot.onText(/\/status/, async (msg) => {
   if (msg.chat.type !== 'private') {
     // Ignora o comando se não for em um chat privado
@@ -2927,8 +2926,8 @@ bot.onText(/\/status/, async (msg) => {
   })).then(results => results.filter(result => result).length);
 
   // Obtém a lista de usuários que enviaram mensagem para o bot
-  const updates = await bot.getMyCommands();
-  const userIds = updates.map(update => update.from.id);
+  const updates = await bot.getUpdates();
+  const userIds = updates.map(update => update.message.from.id);
   const uniqueUserIds = [...new Set(userIds)];
   const numUsers = uniqueUserIds.length;
 
