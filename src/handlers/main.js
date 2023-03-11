@@ -2909,41 +2909,33 @@ bot.onText(/^\/sug (.+)/, (msg, match) => {
 
 
 
+
+
+
 bot.onText(/\/status/, async (msg) => {
-
   if (msg.chat.type !== 'private') {
-
     // Ignora o comando se não for em um chat privado
-
     return;
-
   }
 
   // Obtém a lista de chats que o bot faz parte
-
-  const chats = await bot.getMyChatMember(msg.chat.id);
-
-  const numGroups = chats.filter(chat => chat.status === 'member' && chat.chat.type === 'group').length;
+  const chats = await bot.getMyCommands();
+  const chatIds = chats.map(chat => chat.chat.id);
+  const numGroups = await Promise.all(chatIds.map(async (id) => {
+    const chat = await bot.getChatMember(id, bot.options.username);
+    return chat.status === 'member' && chat.chat.type === 'group';
+  })).then(results => results.filter(result => result).length);
 
   // Obtém a lista de usuários que enviaram mensagem para o bot
-
   const updates = await bot.getMyCommands();
-
   const userIds = updates.map(update => update.from.id);
-
   const uniqueUserIds = [...new Set(userIds)];
-
   const numUsers = uniqueUserIds.length;
 
   // Cria a mensagem de resposta
-
-  const message = `──❑ 「 Bot Stats 」 ❑──\n\n ☆ ${numGroups} grupos\n ☆ ${numUsers} usuários`;
-
+  const message = `\n──❑ 「 Bot Stats 」 ❑──\n\n ☆ ${numGroups} grupos\n ☆ ${numUsers} usuários`;
   bot.sendMessage(msg.chat.id, message);
-
 });
-
-
 
 
 
