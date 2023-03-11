@@ -2915,16 +2915,13 @@ bot.onText(/\/status/, async (msg) => {
   }
 
   // Obtém a lista de chats que o bot faz parte
-  const botUser = await bot.getMe();
-  const chats = await Promise.all(botUser.chat_ids.map(async (id) => {
-    const chat = await bot.getChat(id);
-    return chat;
-  }));
-
-  const chatIds = chats.map(chat => chat.id);
+  const chatIds = bot.getMe().chat.map(chat => chat.id);
   const numGroups = await Promise.all(chatIds.map(async (id) => {
-    const chat = await bot.getChatMember(id, bot.options.username);
-    return chat.status === 'member' && chat.chat.type === 'group';
+    const chat = await bot.getChatAdministrators(id);
+    const adminIds = chat.map(admin => admin.user.id);
+    const numAdmins = adminIds.length;
+    const numMembers = await bot.getChatMembersCount(id) - numAdmins;
+    return numMembers > 0;
   })).then(results => results.filter(result => result).length);
 
   // Obtém a lista de usuários que enviaram mensagem para o bot
