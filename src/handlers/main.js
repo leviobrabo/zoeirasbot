@@ -2908,16 +2908,6 @@ bot.onText(/^\/sug (.+)/, (msg, match) => {
 
 
 
-bot.onText(/\/stats/, async (msg, match) => {
-  const stats = await bot.getStats();
-
-  const message = `O bot está presente em ${stats.groups} grupos e recebeu mensagens de ${stats.users} usuários.`;
-
-  bot.sendMessage(msg.chat.id, message);
-});
-
-
-
 
 
 
