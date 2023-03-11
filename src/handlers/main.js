@@ -2919,7 +2919,10 @@ bot.onText(/\/status/, async (msg) => {
 
   // Obtém a lista de chats que o bot faz parte
   const chats = await bot.getMyCommands();
-  const chatIds = chats.map(chat => chat.chat.id);
+  let chatIds = [];
+  if (chats) {
+    chatIds = chats.map(chat => chat.chat.id);
+  }
   const numGroups = await Promise.all(chatIds.map(async (id) => {
     const chat = await bot.getChatMember(id, bot.options.username);
     return chat.status === 'member' && chat.chat.type === 'group';
@@ -2935,8 +2938,6 @@ bot.onText(/\/status/, async (msg) => {
   const message = `\n──❑ 「 Bot Stats 」 ❑──\n\n ☆ ${numGroups} grupos\n ☆ ${numUsers} usuários`;
   bot.sendMessage(msg.chat.id, message);
 });
-
-
 
 
 
