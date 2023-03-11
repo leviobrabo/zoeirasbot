@@ -2915,19 +2915,21 @@ bot.onText(/\/status/, async (msg) => {
   }
 
   // Obtém a lista de chats que o bot faz parte
-  const chats = await bot.getMyCommands();
-  let chatIds = [];
-  if (chats) {
-    chatIds = chats.map(chat => chat.chat.id);
-  }
+  const botUser = await bot.getMe();
+  const chats = await Promise.all(botUser.chat_ids.map(async (id) => {
+    const chat = await bot.getChat(id);
+    return chat;
+  }));
+
+  const chatIds = chats.map(chat => chat.id);
   const numGroups = await Promise.all(chatIds.map(async (id) => {
     const chat = await bot.getChatMember(id, bot.options.username);
     return chat.status === 'member' && chat.chat.type === 'group';
   })).then(results => results.filter(result => result).length);
 
   // Obtém a lista de usuários que enviaram mensagem para o bot
-  const updates = await bot.getUpdates();
-  const userIds = updates.map(update => update.message.from.id);
+  const updates = await bot.getMyCommands();
+  const userIds = updates.map(update => update.from.id);
   const uniqueUserIds = [...new Set(userIds)];
   const numUsers = uniqueUserIds.length;
 
